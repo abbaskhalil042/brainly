@@ -1,5 +1,6 @@
 import express, { RequestHandler } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import userRoutes from "./routes/user.routes";
 import connectDB from "./config/db";
 import contentRoutes from "./routes/content.routes";
@@ -8,6 +9,7 @@ import shareRoutes from "./routes/share.routes";
 const app = express();
 
 dotenv.config();
+app.use(cors());
 app.use(express.urlencoded({ extended: true }) as RequestHandler);
 app.use(express.json() as RequestHandler);
 

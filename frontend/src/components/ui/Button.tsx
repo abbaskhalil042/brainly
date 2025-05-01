@@ -28,6 +28,7 @@ const Button = (props: ButtonProps) => {
       className={`btn ${props.className} ${variantStyles[props.variant]} ${
         sizeStyle[props.size]
       }  ${props.color} ${defaultStyle}  `}
+      onClick={props.onClick}
     >
       {props.startIcon}
       {props.text}
