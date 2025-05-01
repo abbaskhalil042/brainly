@@ -4,7 +4,7 @@ import ShareIcon from "./assets/icons/ShareIcon";
 
 const App = () => {
   return (
-    <div>
+    <div> 
       <Button
         onClick={() => console.log("hello")}
         variant="secondary"
