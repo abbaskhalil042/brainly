@@ -13,8 +13,8 @@ app.use(express.json() as RequestHandler);
 
 //*user routes
 app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/content", contentRoutes);
-app.use("/v1/api/share", shareRoutes);
+app.use("/api/v1/brain/content", contentRoutes);
+app.use("/v1/api/brain/share", shareRoutes);
 
 app.listen(3000, () => {
   connectDB()

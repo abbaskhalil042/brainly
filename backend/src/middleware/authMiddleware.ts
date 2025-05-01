@@ -1,7 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
-export const authMiddleware = async (req: any, res: any, next: any) => {
+export interface CustomRequest extends Request {
+  userId?: string;
+}
+
+export const authMiddleware = async (
+  req: CustomRequest,
+  res: any,
+  next: any
+) => {
   try {
     const token = req.headers.token;
     if (!token) {
@@ -11,7 +19,10 @@ export const authMiddleware = async (req: any, res: any, next: any) => {
       token as string,
       process.env.JWT_SECRET as string
     );
-    req.body.userId = decoded;
+
+    console.log("decoded token", decoded);
+
+    req.userId = (decoded as JwtPayload).id;
 
     next();
   } catch (error) {

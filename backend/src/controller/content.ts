@@ -1,7 +1,8 @@
+import { CustomRequest } from "../middleware/authMiddleware";
 import Content from "../models/contet.models";
 import { ContentType } from "../utils/contentType";
 
-export const content = async (req: any, res: any) => {
+export const content = async (req: CustomRequest, res: any) => {
   const { title, link, type } = req.body;
   console.log(title, link, type);
   try {
@@ -9,7 +10,13 @@ export const content = async (req: any, res: any) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const content = await Content.create({ title, link, type });
+    const content = await Content.create({
+      title,
+      link,
+      type,
+      userId: req.userId, //look at the middleware
+      tags: [],
+    });
 
     return res
       .status(201)
@@ -19,11 +26,31 @@ export const content = async (req: any, res: any) => {
   }
 };
 
-export const getContent = async (req: any, res: any) => {
+//* get all content
+export const getContent = async (req: CustomRequest, res: any) => {
   try {
-    const content = await Content.find();
-    return res.status(200).json({ content });
+    const userId = req.userId;
+    console.log("from get content", userId);
+    const content = await Content.find({
+      userId: userId,
+    }).populate("userId", "username");
+
+    console.log("content : ", content);
+
+    if (!content || content.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No content found for this user" });
+    }
+
+    if (!content) {
+      return res.status(404).json({ message: "Content not found" });
+    }
+
+    console.log(content);
+    return res.status(200).json({ content: content });
   } catch (error: any) {
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -76,7 +103,7 @@ export const getContentByType = async (req: any, res: any) => {
   try {
     const { type } = req.params;
     const content = await Content.find({ type });
-    
+
     return res.status(200).json({ content });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });

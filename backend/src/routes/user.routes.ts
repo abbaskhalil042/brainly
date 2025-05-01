@@ -1,5 +1,6 @@
 import express from "express";
 import { signin, signup } from "../controller/user.auth";
+import { authMiddleware } from "../middleware/authMiddleware";
 const userRoutes: express.Router = express.Router();
 
 // Use different routes for signup and signin

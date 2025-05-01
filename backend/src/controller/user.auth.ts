@@ -41,10 +41,13 @@ export const signin = async (req: any, res: any) => {
     }
 
     const existingUser = await User.findOne({ username });
+    console.log("console from siginin", req.body.userId);
+    console.log("console from siginin", existingUser?._id.toString());
 
     if (!existingUser) {
       return res.status(404).json({ message: "User not found" });
     }
+
 
     const isPasswordCorrect = await bcryptjs.compare(
       password,

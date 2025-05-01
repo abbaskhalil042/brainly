@@ -14,6 +14,6 @@ const contentRoutes = express.Router();
 contentRoutes.post("/add", authMiddleware, content);
 contentRoutes.post("/delete/:id", authMiddleware, deleteContent);
 contentRoutes.post("/update/:id", authMiddleware, updateContent);
-contentRoutes.post("/get", authMiddleware, getContent);
-contentRoutes.post("/get/:type", authMiddleware, getContentByType);
+contentRoutes.get("/all", authMiddleware, getContent);
+contentRoutes.get("/get/:type", authMiddleware, getContentByType);
 export default contentRoutes;

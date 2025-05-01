@@ -19,13 +19,12 @@ const contentSchema = new mongoose.Schema(
     type: {
       type: String,
       required: true,
-      enum: ["document", "tweet", "youTube", "link"],
+      enum: ["DOCUMENT", "TWEET", "YOUTUBE", "LINK"],
     },
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-     
   },
   { timestamps: true }
 );
