@@ -3,10 +3,11 @@ interface ButtonProps {
   size: "sm" | "md" | "lg";
 
   text: string;
-  startIcon: React.ReactElement;
+  startIcon?: React.ReactElement;
   endIcon?: React.ReactElement;
   color?: string;
-  onClick: () => void;
+  onClick?: () => void;
+  className?: string;
 }
 
 const variantStyles = {
@@ -19,14 +20,14 @@ const sizeStyle = {
   md: "py-2 px-4",
   lg: "py-4 px-6",
 };
-const defaultStyle = "rounded-md flex items-center gap-1";
+const defaultStyle = "rounded-md flex items-center gap-1 cursor-pointer";
 
 const Button = (props: ButtonProps) => {
   return (
     <button
-      className={`btn ${variantStyles[props.variant]} ${
+      className={`btn ${props.className} ${variantStyles[props.variant]} ${
         sizeStyle[props.size]
-      }  ${props.color} ${defaultStyle} `}
+      }  ${props.color} ${defaultStyle}  `}
     >
       {props.startIcon}
       {props.text}

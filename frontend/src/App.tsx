@@ -1,26 +1,15 @@
-import Button from "./components/ui/Button";
-import PlusIcon from "./assets/icons/PlusIcon";
-import ShareIcon from "./assets/icons/ShareIcon";
+import { Route, Routes } from "react-router-dom";
+import Signin from "./pages/Signin";
+import Signup from "./pages/SIgnup";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
-    <div> 
-      <Button
-        onClick={() => console.log("hello")}
-        variant="secondary"
-        size="md"
-        text="click on me"
-        startIcon={<PlusIcon size={"md"} />}
-      />
-
-      <Button
-        onClick={() => console.log("hello")}
-        variant="secondary"
-        size="md"
-        text="click on me"
-        startIcon={<ShareIcon size={"md"} />}
-      />
-    </div>
+    <Routes>
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/signin" element={<Signin />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
   );
 };
 
